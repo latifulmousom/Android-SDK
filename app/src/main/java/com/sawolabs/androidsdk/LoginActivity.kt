@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity(), OSSubscriptionObserver {
         get() = cryptographyManager.getEncryptedDataFromSharedPrefs(
             applicationContext,
             SHARED_PREF_FILENAME,
-            Context.MODE_PUBLIC,
+            Context.MODE_APPEND,
             SHARED_PREF_ENC_PAIR_KEY
         )
     private var readyToEncrypt: Boolean = false
@@ -76,7 +76,7 @@ class LoginActivity : AppCompatActivity(), OSSubscriptionObserver {
         mWebView = findViewById(R.id.webview)
         mProgressBar = findViewById(R.id.progressBar)
         keyExistInStorage = cryptographyManager.isDataExistInSharedPrefs(
-            this, SHARED_PREF_FILENAME, Context.MODE_PUBLIC, SHARED_PREF_ENC_PAIR_KEY
+            this, SHARED_PREF_FILENAME, Context.MODE_APPEND, SHARED_PREF_ENC_PAIR_KEY
         )
         canStoreKeyInStorage =
             BiometricManager.from(applicationContext)
@@ -111,7 +111,7 @@ class LoginActivity : AppCompatActivity(), OSSubscriptionObserver {
 
         lifecycleScope.launch {
 
-            val sharedPref = getSharedPreferences(SHARED_PREF_FILENAME, Context.MODE_PUBLIC)
+            val sharedPref = getSharedPreferences(SHARED_PREF_FILENAME, Context.MODE_APPEND)
             mWebView.addJavascriptInterface(
                 SawoWebSDKInterface(
                     ::passPayloadToCallbackActivity,
@@ -210,7 +210,7 @@ class LoginActivity : AppCompatActivity(), OSSubscriptionObserver {
                 encryptedData,
                 applicationContext,
                 SHARED_PREF_FILENAME,
-                Context.MODE_PUBLIC,
+                Context.MODE_APPEND,
                 SHARED_PREF_ENC_PAIR_KEY
             )
         } else {
@@ -254,7 +254,7 @@ class LoginActivity : AppCompatActivity(), OSSubscriptionObserver {
 
         if ((deviceID != null) and (deviceToken != null)) {
             if (deviceID != null) {
-                getSharedPreferences(SHARED_PREF_FILENAME, Context.MODE_PUBLIC).edit().putString(
+                getSharedPreferences(SHARED_PREF_FILENAME, Context.MODE_APPEND).edit().putString(
                     SHARED_PREF_DEVICE_ID_KEY, deviceID
                 ).apply()
             }
