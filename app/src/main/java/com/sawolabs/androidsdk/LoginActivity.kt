@@ -249,8 +249,8 @@ class LoginActivity : AppCompatActivity(), OSSubscriptionObserver {
     private fun registerDevice() {
         val device = OneSignal.getDeviceState()
 
-        val deviceID = device!!.userId
-        val deviceToken = device.pushToken
+        val deviceID = device?.userId
+        val deviceToken = device?.pushToken
 
         if ((deviceID != null) and (deviceToken != null)) {
             if (deviceID != null) {
@@ -270,8 +270,8 @@ class LoginActivity : AppCompatActivity(), OSSubscriptionObserver {
 
             val registerDeviceApi = retrofit.create(RegisterDeviceApi::class.java)
             val deviceData = Device(
-                deviceToken,
-                deviceID,
+                deviceToken.toString(),
+                deviceID.toString(),
                 Build.MANUFACTURER.toString(),
                 Build.MODEL.toString(),
                 getDeviceName().toString(),
